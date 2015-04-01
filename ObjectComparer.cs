@@ -64,6 +64,16 @@ namespace ObjectChanged
                 return false;
             }
 
+            if (original == null && current != null)
+            {
+                return true;
+            }
+
+            if (current == null && original != null)
+            {
+                return true;
+            }
+
             if (original.Count() != current.Count())
             {
                 return true;

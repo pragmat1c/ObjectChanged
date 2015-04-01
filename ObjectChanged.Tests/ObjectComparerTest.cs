@@ -7,7 +7,7 @@ namespace ObjectChanged.Tests
 {
     public class ObjectComparerTest
     {
-        public class ChangeTest 
+        public class ChangeTest
         {
             [Changes]
             public int HasChangesAttribute { get; set; }
@@ -19,12 +19,13 @@ namespace ObjectChanged.Tests
         {
             [Changes]
             public int HasChangesAttribute { get; set; }
-            
+
         }
 
         public class ChangeTest3
         {
-            [Changes] public int HasChangesAttribute;
+            [Changes]
+            public int HasChangesAttribute;
         }
 
         public class ChangeTestIndexer
@@ -38,7 +39,7 @@ namespace ObjectChanged.Tests
                     // the corresponding element from the internal array. 
                     return i;
                 }
-                
+
             }
         }
 
@@ -51,7 +52,7 @@ namespace ObjectChanged.Tests
                 {
                     // This indexer is very simple, and just returns or sets 
                     // the corresponding element from the internal array. 
-                    return i*2;
+                    return i * 2;
                 }
             }
         }
@@ -68,7 +69,7 @@ namespace ObjectChanged.Tests
             public string String { get; set; }
             [Changes]
             public DateTime DateTime { get; set; }
-                        
+
         }
 
         public class ChangeTestGeneric<T>
@@ -80,8 +81,8 @@ namespace ObjectChanged.Tests
         [Fact]
         public void TestHasChanged()
         {
-            var orig = new ChangeTest { HasChangesAttribute = 1};
-            var curr = new ChangeTest {HasChangesAttribute = 2};
+            var orig = new ChangeTest { HasChangesAttribute = 1 };
+            var curr = new ChangeTest { HasChangesAttribute = 2 };
 
             Assert.True(ObjectComparer.HasChanged(orig, curr));
         }
@@ -119,14 +120,14 @@ namespace ObjectChanged.Tests
             var orig = new ChangeTestIndexer();
             var curr = new ChangeTestIndexer2();
 
-            Assert.Throws<InvalidComparisionException>(()=> { ObjectComparer.HasChanged(orig, curr); });
+            Assert.Throws<InvalidComparisionException>(() => { ObjectComparer.HasChanged(orig, curr); });
         }
 
         [Fact]
         public void TestHasChangedGeneric()
         {
-            var orig = new ChangeTestGeneric<int>{HasChangesAttribute = 1};
-            var curr = new ChangeTestGeneric<string>{ HasChangesAttribute = "1" };
+            var orig = new ChangeTestGeneric<int> { HasChangesAttribute = 1 };
+            var curr = new ChangeTestGeneric<string> { HasChangesAttribute = "1" };
 
             Assert.True(ObjectComparer.HasChanged(orig, curr));
         }
@@ -163,10 +164,10 @@ namespace ObjectChanged.Tests
         {
             var orig = new ChangeTestTypes { Bool = false, DateTime = DateTime.MinValue, Decimal = Decimal.MinValue, Int = int.MinValue, String = "" };
             var curr = new ChangeTestTypes { Bool = true, DateTime = DateTime.MaxValue, Decimal = Decimal.MaxValue, Int = int.MaxValue, String = "blahblah" };
-            
+
             Assert.True(ObjectComparer.HasChanged(orig, curr));
         }
 
-        
+
     }
 }
